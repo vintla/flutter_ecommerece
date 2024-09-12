@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/app/common/routes/names.dart';
+import 'package:ecommerce_app/app/presentation/auth/pages/signin_page.dart';
 import 'package:ecommerce_app/app/presentation/splash/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,7 +13,10 @@ class PageEntity {
 }
 
 class AppPages {
-  static final List<PageEntity> _pages = [];
+  static final List<PageEntity> _pages = [
+    PageEntity(route: AppRoutes.SPLASH_PAGE, page: const SplashPage()),
+    PageEntity(route: AppRoutes.SIGNIN_PAGE, page: const SigninPage())
+  ];
   static List<dynamic> allBlocProviders(BuildContext context) {
     List blocProviderList = [];
 
@@ -23,7 +28,15 @@ class AppPages {
   }
 
   static MaterialPageRoute generateRoute(RouteSettings settings) {
-    if (settings.name != null) {}
-    return MaterialPageRoute(builder: (_) => const SplashPage());
+    if (settings.name != null) {
+      //check route name when navigation get triggered
+      var result = _pages.where((element) => element.route == settings.name);
+      if (result.isNotEmpty) {
+        return MaterialPageRoute(
+            builder: (_) => result.first.page, settings: settings);
+      }
+    }
+    return MaterialPageRoute(
+        builder: (_) => const SplashPage(), settings: settings);
   }
 }
