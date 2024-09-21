@@ -15,7 +15,7 @@ class PageEntity {
 class AppPages {
   static final List<PageEntity> _pages = [
     PageEntity(route: AppRoutes.SPLASH_PAGE, page: const SplashPage()),
-    PageEntity(route: AppRoutes.SIGNIN_PAGE, page: const SigninPage())
+    PageEntity(route: AppRoutes.SIGNIN_PAGE, page: SigninPage())
   ];
   static List<dynamic> allBlocProviders(BuildContext context) {
     List blocProviderList = [];
@@ -36,7 +36,6 @@ class AppPages {
             builder: (_) => result.first.page, settings: settings);
       }
     }
-    return MaterialPageRoute(
-        builder: (_) => const SplashPage(), settings: settings);
+    return MaterialPageRoute(builder: (_) => SigninPage(), settings: settings);
   }
 }
