@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,9 +19,27 @@ class Basic {
     return Text(
       text,
       style: TextStyle(
-        color: color ?? Colors.black,
+        color: color ?? Colors.white,
         fontSize: fontSize?.sp ?? 12.sp,
         fontWeight: fontWeight ?? FontWeight.normal,
+      ),
+    );
+  }
+
+  static Widget richText(
+      String text, String linkedText, void Function()? onTap) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(text: text),
+          TextSpan(
+            text: linkedText,
+            recognizer: TapGestureRecognizer()..onTap = onTap,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
       ),
     );
   }

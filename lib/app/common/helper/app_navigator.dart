@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppNavigator {
-  static void push(BuildContext context, String routeName) {
-    Navigator.pushNamed(context, routeName);
+  static void push(BuildContext context, String routeName, {dynamic args}) {
+    Navigator.pushNamed(context, routeName, arguments: args);
   }
 
   static void pushAndRemove(BuildContext context, String routeName) {
