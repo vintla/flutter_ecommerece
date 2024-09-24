@@ -6,8 +6,8 @@ import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SigninPage extends StatelessWidget {
-  SigninPage({super.key});
+class SignupPage extends StatelessWidget {
+  SignupPage({super.key});
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _emailCon = TextEditingController();
@@ -16,8 +16,8 @@ class SigninPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppBar(),
-      body: Padding(
+      appBar: const BasicAppBar(),
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
           horizontal: 16.w,
           vertical: 40.h,

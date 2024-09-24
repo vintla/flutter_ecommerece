@@ -32,6 +32,11 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: hideBack
           ? null
           : IconButton(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              padding: EdgeInsets.only(left: 15.w),
               onPressed: () => Navigator.pop(context),
               icon: Container(
                 height: 50.h,

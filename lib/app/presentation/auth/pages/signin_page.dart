@@ -47,7 +47,7 @@ class SigninPage extends StatelessWidget {
               "Create one",
               () {
                 showSnackbar(context, "Create one");
-                // AppNavigator.push(context, '/signup');
+                AppNavigator.push(context, '/signup');
               },
             )
           ],
