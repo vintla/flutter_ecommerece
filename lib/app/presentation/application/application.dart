@@ -1,6 +1,9 @@
+import 'package:ecommerce_app/app/core/config/themes/app_colors.dart';
 import 'package:ecommerce_app/app/presentation/application/home/pages/home_page.dart';
+import 'package:ecommerce_app/app/presentation/application/notification/page/notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'application_cubit.dart';
 
@@ -16,11 +19,30 @@ class Application extends StatelessWidget {
             body: _buildPage(
               state.index,
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: const [],
-              onTap: (value) {
-                context.read<ApplicationCubit>().menuIndex(value);
-              },
+            bottomNavigationBar: Container(
+              height: 80.h,
+              width: 390.w,
+              // padding: EdgeInsets.all(15.h),
+              child: BottomNavigationBar(
+                backgroundColor: AppColors.background,
+                currentIndex: state.index,
+                type: BottomNavigationBarType.fixed,
+                showSelectedLabels: false,
+                unselectedItemColor: AppColors.secondBackground,
+                showUnselectedLabels: false,
+                elevation: 0,
+                items: [
+                  buildBottomNavBarItem(Icons.home_outlined, "home"),
+                  buildBottomNavBarItem(
+                      Icons.notifications_outlined, "notifications"),
+                  buildBottomNavBarItem(Icons.list_alt_rounded, "orders"),
+                  buildBottomNavBarItem(
+                      Icons.account_circle_outlined, "profile"),
+                ],
+                onTap: (value) {
+                  context.read<ApplicationCubit>().menuIndex(value);
+                },
+              ),
             ),
           ),
         );
@@ -31,9 +53,7 @@ class Application extends StatelessWidget {
   Widget _buildPage(int index) {
     List<Widget> pages = [
       const HomePage(),
-      const Center(
-        child: Text("Notifications"),
-      ),
+      const NotificationPage(),
       const Center(
         child: Text("Orders"),
       ),
@@ -43,5 +63,19 @@ class Application extends StatelessWidget {
     ];
 
     return pages[index];
+  }
+
+  BottomNavigationBarItem buildBottomNavBarItem(IconData icon, String label) {
+    return BottomNavigationBarItem(
+      label: label,
+      icon: Icon(
+        icon,
+        color: AppColors.secondBackground,
+      ),
+      activeIcon: Icon(
+        icon,
+        color: AppColors.primary,
+      ),
+    );
   }
 }
