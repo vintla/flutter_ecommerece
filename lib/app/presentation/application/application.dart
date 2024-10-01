@@ -1,10 +1,11 @@
-import 'package:ecommerce_app/app/core/config/themes/app_colors.dart';
-import 'package:ecommerce_app/app/presentation/application/home/pages/home_page.dart';
-import 'package:ecommerce_app/app/presentation/application/notification/page/notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../core/config/themes/app_colors.dart';
+import 'home/pages/home_page.dart';
+import 'order/pages/order_page.dart';
+import 'notification/pages/notification_page.dart';
 import 'application_cubit.dart';
 
 class Application extends StatelessWidget {
@@ -54,9 +55,7 @@ class Application extends StatelessWidget {
     List<Widget> pages = [
       const HomePage(),
       const NotificationPage(),
-      const Center(
-        child: Text("Orders"),
-      ),
+      OrderPage(),
       const Center(
         child: Text("Profile"),
       )
