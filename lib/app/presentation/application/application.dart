@@ -33,12 +33,13 @@ class Application extends StatelessWidget {
                 showUnselectedLabels: false,
                 elevation: 0,
                 items: [
-                  buildBottomNavBarItem(Icons.home_outlined, "home"),
+                  buildBottomNavBarItem(Icons.home_outlined, "home", false),
                   buildBottomNavBarItem(
-                      Icons.notifications_outlined, "notifications"),
-                  buildBottomNavBarItem(Icons.list_alt_rounded, "orders"),
+                      Icons.notifications_outlined, "notifications", true),
                   buildBottomNavBarItem(
-                      Icons.account_circle_outlined, "profile"),
+                      Icons.list_alt_rounded, "orders", false),
+                  buildBottomNavBarItem(
+                      Icons.account_circle_outlined, "profile", false),
                 ],
                 onTap: (value) {
                   context.read<ApplicationCubit>().menuIndex(value);
@@ -64,17 +65,89 @@ class Application extends StatelessWidget {
     return pages[index];
   }
 
-  BottomNavigationBarItem buildBottomNavBarItem(IconData icon, String label) {
+  BottomNavigationBarItem buildBottomNavBarItem(
+      IconData icon, String label, bool isNotification) {
     return BottomNavigationBarItem(
       label: label,
-      icon: Icon(
-        icon,
-        color: AppColors.secondBackground,
+      icon: Stack(
+        children: [
+          Icon(
+            icon,
+            color: AppColors.secondBackground,
+          ),
+          isNotification
+              ? Positioned(
+                  top: 5,
+                  left: 15,
+                  child: Container(
+                    height: 4.h,
+                    width: 4.w,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                )
+              : const SizedBox(),
+        ],
       ),
-      activeIcon: Icon(
-        icon,
-        color: AppColors.primary,
+      activeIcon: Stack(
+        children: [
+          Icon(
+            icon,
+            color: AppColors.primary,
+          ),
+          isNotification
+              ? Positioned(
+                  top: 5,
+                  left: 15,
+                  child: Container(
+                    height: 4.h,
+                    width: 4.w,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                )
+              : const SizedBox(),
+        ],
       ),
+    );
+  }
+
+  Widget _readedNotification(bool isActive) {
+    return Icon(
+      Icons.notifications_outlined,
+      fill: 1,
+      size: 35.sp,
+      color: isActive == true ? AppColors.primary : AppColors.secondBackground,
+    );
+  }
+
+  Widget _notReadedNotification(bool isActive) {
+    return Stack(
+      children: [
+        Icon(
+          Icons.notifications_outlined,
+          fill: 1,
+          size: 35.sp,
+          color:
+              isActive == true ? AppColors.primary : AppColors.secondBackground,
+        ),
+        Positioned(
+          top: 10,
+          left: 30,
+          child: Container(
+            height: 6.h,
+            width: 6.w,
+            decoration: const BoxDecoration(
+              color: Colors.red,
+              shape: BoxShape.circle,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

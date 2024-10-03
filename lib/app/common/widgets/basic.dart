@@ -15,6 +15,7 @@ class Basic {
     Color? color,
     double? fontSize,
     FontWeight? fontWeight,
+    int? maxLines,
   }) {
     return Text(
       text,
@@ -22,7 +23,9 @@ class Basic {
         color: color ?? Colors.white,
         fontSize: fontSize?.sp ?? 12.sp,
         fontWeight: fontWeight ?? FontWeight.normal,
+        overflow: TextOverflow.ellipsis,
       ),
+      maxLines: maxLines,
     );
   }
 
