@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/app/common/helper/app_navigator.dart';
 import 'package:ecommerce_app/app/common/helper/show_snackbar.dart';
+import 'package:ecommerce_app/app/common/routes/names.dart';
 import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
@@ -12,6 +13,11 @@ class SignupPage extends StatelessWidget {
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
+
+  bool get isTextFieldEmpty => (_emailCon.value.text.isEmpty &&
+      _lastName.value.text.isEmpty &&
+      _firstName.value.text.isEmpty &&
+      _passwordCon.value.text.isEmpty);
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +46,18 @@ class SignupPage extends StatelessWidget {
             Basic.textField(_passwordCon, "Password"),
             SizedBox(height: 20.h),
             BasicButton(
-              onPressed: () => AppNavigator.pushAndRemove(
-                context,
-                '/signin',
-              ),
+              onPressed: isTextFieldEmpty
+                  ? () {}
+                  : () => AppNavigator.push(
+                        context,
+                        AppRoutes.GENDER_AND_AGE_SELECTION_PAGE,
+                        args: [
+                          _emailCon.text,
+                          _passwordCon.text,
+                          _firstName.text,
+                          _lastName.text,
+                        ],
+                      ),
               title: "Continue",
             ),
             SizedBox(height: 20.h),
@@ -52,7 +66,7 @@ class SignupPage extends StatelessWidget {
               "Sign in",
               () {
                 showSnackbar(context, "Sign in");
-                AppNavigator.pushAndRemove(context, '/signin');
+                AppNavigator.pushAndRemove(context, AppRoutes.SIGNIN_PAGE);
               },
             )
           ],

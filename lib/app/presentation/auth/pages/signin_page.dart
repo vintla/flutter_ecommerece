@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/app/common/helper/app_navigator.dart';
 import 'package:ecommerce_app/app/common/helper/show_snackbar.dart';
+import 'package:ecommerce_app/app/common/routes/names.dart';
 import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
@@ -36,7 +37,7 @@ class SigninPage extends StatelessWidget {
             BasicButton(
               onPressed: () => AppNavigator.push(
                 context,
-                '/enter_password',
+                AppRoutes.ENTER_PASSWORD_PAGE,
                 args: _emailCon.text,
               ),
               title: "Continue",
@@ -47,7 +48,7 @@ class SigninPage extends StatelessWidget {
               "Create one",
               () {
                 showSnackbar(context, "Create one");
-                AppNavigator.push(context, '/signup');
+                AppNavigator.push(context, AppRoutes.SIGNUP_PAGE);
               },
             )
           ],

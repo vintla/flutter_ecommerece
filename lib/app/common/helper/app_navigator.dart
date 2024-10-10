@@ -5,12 +5,14 @@ class AppNavigator {
     Navigator.pushNamed(context, routeName, arguments: args);
   }
 
-  static void pushAndRemove(BuildContext context, String routeName) {
+  static void pushAndRemove(BuildContext context, String routeName,
+      {dynamic args}) {
     Navigator.pushNamedAndRemoveUntil(
-        context, routeName, (Route<dynamic> _) => false);
+        context, routeName, arguments: args, (Route<dynamic> _) => false);
   }
 
-  static void pushReplacement(BuildContext context, String routeName) {
-    Navigator.pushReplacementNamed(context, routeName);
+  static void pushReplacement(BuildContext context, String routeName,
+      {dynamic args}) {
+    Navigator.pushReplacementNamed(context, routeName, arguments: args);
   }
 }

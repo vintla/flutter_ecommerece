@@ -4,7 +4,9 @@ import 'package:ecommerce_app/app/common/helper/show_snackbar.dart';
 import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
+import 'package:ecommerce_app/app/common/widgets/basic_reactive_button.dart';
 import 'package:ecommerce_app/app/data/auth/models/user_signin_model.dart';
+import 'package:ecommerce_app/app/domain/auth/usecases/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +42,13 @@ class EnterPasswordPage extends StatelessWidget {
               Basic.textField(_passwordCon, "Enter your password"),
               SizedBox(height: 20.h),
               BasicButton(
-                onPressed: () {},
+                onPressed: () {
+                  userSigninModel.password = _passwordCon.text;
+                  context.read<ButtonCubit>().execute(
+                        useCase: SigninUseCase(),
+                        params: userSigninModel,
+                      );
+                },
                 title: "Continue",
               ),
               SizedBox(height: 20.h),

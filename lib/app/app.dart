@@ -11,7 +11,15 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [...AppPages.allBlocProviders(context)],
+      providers: [
+        ...AppPages.allBlocProviders(context),
+        // ...[
+        //   BlocProvider(create: (_) => AgeSelectionCubit()),
+        //   BlocProvider(create: (_) => GenderSelectionCubit()),
+        //   BlocProvider(create: (_) => AgesDisplayCubit()),
+        //   BlocProvider(create: (_) => ButtonCubit()),
+        // ],
+      ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: (context, child) => MaterialApp(

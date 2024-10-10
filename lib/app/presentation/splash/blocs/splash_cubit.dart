@@ -6,11 +6,11 @@ class SplashCubit extends Cubit<SplashState> {
 
   void appStarted() async {
     await Future.delayed(const Duration(seconds: 2));
-    var isLoggedIn = true;
+    var isLoggedIn = false;
 
     if (isLoggedIn) {
       emit(Authenticated());
     }
-    // emit(UnAuthenticated());
+    emit(UnAuthenticated());
   }
 }
