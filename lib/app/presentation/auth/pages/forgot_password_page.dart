@@ -43,7 +43,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(height: 20.h),
-              Basic.textField(_emailCon, "Enter email address"),
+              Basic.textField(context, _emailCon, "Enter email address"),
               SizedBox(height: 20.h),
               BasicButton(
                 onPressed: () {

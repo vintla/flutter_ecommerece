@@ -32,7 +32,7 @@ class SigninPage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 20.h),
-            Basic.textField(_emailCon, "Your email address"),
+            Basic.textField(context, _emailCon, "Your email address"),
             SizedBox(height: 20.h),
             BasicButton(
               onPressed: () => AppNavigator.push(

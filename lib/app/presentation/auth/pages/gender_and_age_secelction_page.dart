@@ -17,8 +17,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GenderAndAgeSelectionPage extends StatelessWidget {
-  final UserCreationModel userCreationModel;
-  const GenderAndAgeSelectionPage({required this.userCreationModel, super.key});
+  final String email;
+  final String password;
+  final String lastName;
+  final String firstName;
+  const GenderAndAgeSelectionPage({
+    required this.email,
+    required this.password,
+    required this.lastName,
+    required this.firstName,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -182,11 +191,16 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
           builder: (context) {
             return BasicReactiveButton(
               onPressed: () {
+                final UserCreationModel userCreationModel = UserCreationModel(
+                  email: email,
+                  lastName: lastName,
+                  password: password,
+                  firstName: firstName,
+                );
                 userCreationModel.age =
                     context.read<AgeSelectionCubit>().selectedAge;
                 userCreationModel.gender =
                     context.read<GenderSelectionCubit>().selectedGender;
-
                 context.read<ButtonCubit>().execute(
                     useCase: SignupUseCase(), params: userCreationModel);
               },

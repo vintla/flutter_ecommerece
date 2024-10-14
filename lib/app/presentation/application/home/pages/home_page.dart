@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         body: Container(
-          child: SingleChildScrollView(
+          child: const SingleChildScrollView(
             child: Column(
               children: [
                 Text("Search"),

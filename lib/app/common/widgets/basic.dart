@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Basic {
-  static Widget textField(TextEditingController controller, String hintText) {
+  static Widget textField(
+      BuildContext context, TextEditingController controller, String hintText) {
     String text = controller.value.text;
     String errorText() {
       if (text.isEmpty) {

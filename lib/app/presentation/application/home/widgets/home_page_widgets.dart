@@ -70,10 +70,10 @@ Widget cart() {
   );
 }
 
-Widget searchBar(TextEditingController con) {
-  return Basic.textField(con, "search");
-}
-
+// Widget searchBar(TextEditingController con) {
+//   return Basic.textField(context, con, "search");
+// }
+//
 Widget categories() {
   return ListView.builder(
     scrollDirection: Axis.horizontal,

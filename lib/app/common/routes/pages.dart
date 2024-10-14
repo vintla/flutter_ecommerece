@@ -66,12 +66,10 @@ class AppPages {
       PageEntity(
         route: AppRoutes.GENDER_AND_AGE_SELECTION_PAGE,
         page: GenderAndAgeSelectionPage(
-          userCreationModel: UserCreationModel(
-            email: args[0] ?? "null",
-            password: args[1] ?? "null",
-            firstName: args[2] ?? "null",
-            lastName: args[3] ?? "null",
-          ),
+          email: args[0],
+          password: args[1],
+          firstName: args[2],
+          lastName: args[3],
         ),
         blocProvider: BlocProvider(
           create: (_) => ButtonCubit(),

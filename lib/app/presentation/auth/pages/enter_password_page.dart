@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/app/common/blocs/button/button_cubit.dart';
 import 'package:ecommerce_app/app/common/blocs/button/button_state.dart';
+import 'package:ecommerce_app/app/common/helper/app_navigator.dart';
 import 'package:ecommerce_app/app/common/helper/show_snackbar.dart';
+import 'package:ecommerce_app/app/common/routes/routes.dart';
 import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
@@ -29,7 +31,14 @@ class EnterPasswordPage extends StatelessWidget {
           vertical: 40.h,
         ),
         child: BlocListener<ButtonCubit, ButtonState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is ButtonFailureState) {
+              showSnackbar(context, state.errorMessage);
+            }
+            if (state is ButtonSuccessState) {
+              AppNavigator.push(context, AppRoutes.APPLICATION_PAGE);
+            }
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -39,15 +48,21 @@ class EnterPasswordPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(height: 20.h),
-              Basic.textField(_passwordCon, "Enter your password"),
+              Basic.textField(context, _passwordCon, "Enter your password"),
               SizedBox(height: 20.h),
-              BasicButton(
+              BasicReactiveButton(
                 onPressed: () {
                   userSigninModel.password = _passwordCon.text;
+                  debugPrint(userSigninModel.password.toString() +
+                      userSigninModel.email.toString());
                   context.read<ButtonCubit>().execute(
                         useCase: SigninUseCase(),
                         params: userSigninModel,
                       );
+                  // .then(
+                  //   (value) => AppNavigator.push(
+                  //       context, AppRoutes.APPLICATION_PAGE),
+                  // );
                 },
                 title: "Continue",
               ),

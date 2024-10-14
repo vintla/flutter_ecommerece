@@ -4,6 +4,7 @@ import 'package:ecommerce_app/app/common/routes/names.dart';
 import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
+import 'package:ecommerce_app/app/data/auth/models/user_creation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,6 +14,8 @@ class SignupPage extends StatelessWidget {
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
+
+  late final UserCreationModel userCreationModel;
 
   bool get isTextFieldEmpty => (_emailCon.value.text.isEmpty &&
       _lastName.value.text.isEmpty &&
@@ -37,27 +40,27 @@ class SignupPage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 20.h),
-            Basic.textField(_firstName, "Firstname"),
+            Basic.textField(context, _firstName, "Firstname"),
             SizedBox(height: 20.h),
-            Basic.textField(_lastName, "Lastname"),
+            Basic.textField(context, _lastName, "Lastname"),
             SizedBox(height: 20.h),
-            Basic.textField(_emailCon, "Email Address"),
+            Basic.textField(context, _emailCon, "Email Address"),
             SizedBox(height: 20.h),
-            Basic.textField(_passwordCon, "Password"),
+            Basic.textField(context, _passwordCon, "Password"),
             SizedBox(height: 20.h),
             BasicButton(
-              onPressed: isTextFieldEmpty
-                  ? () {}
-                  : () => AppNavigator.push(
-                        context,
-                        AppRoutes.GENDER_AND_AGE_SELECTION_PAGE,
-                        args: [
-                          _emailCon.text,
-                          _passwordCon.text,
-                          _firstName.text,
-                          _lastName.text,
-                        ],
-                      ),
+              onPressed: () {
+                AppNavigator.push(
+                  context,
+                  AppRoutes.GENDER_AND_AGE_SELECTION_PAGE,
+                  args: [
+                    _emailCon.text,
+                    _passwordCon.text,
+                    _firstName.text,
+                    _lastName.text,
+                  ],
+                );
+              },
               title: "Continue",
             ),
             SizedBox(height: 20.h),
