@@ -1,6 +1,9 @@
 abstract class ButtonState {}
 
-class ButtonInitialState extends ButtonState {}
+class ButtonInitialState extends ButtonState {
+  final bool isActive;
+  ButtonInitialState({required this.isActive});
+}
 
 class ButtonLoadingState extends ButtonState {}
 

@@ -5,7 +5,8 @@ import 'package:ecommerce_app/app/common/helper/show_snackbar.dart';
 import 'package:ecommerce_app/app/common/routes/routes.dart';
 import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
-import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
+import 'package:ecommerce_app/app/common/widgets/basic_reactive_button.dart';
+import 'package:ecommerce_app/app/common/widgets/basic_text_field.dart';
 import 'package:ecommerce_app/app/domain/auth/usecases/send_password_reset_email.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,12 +18,20 @@ class ForgotPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final btnCubit = context.read<ButtonCubit>();
     return Scaffold(
-      appBar: BasicAppBar(),
+      appBar: const BasicAppBar(),
       body: BlocListener<ButtonCubit, ButtonState>(
         listener: (context, state) {
+          if (state is ButtonInitialState) {
+            if (_emailCon.value.text.isEmpty) {
+              btnCubit.disable();
+            } else {
+              btnCubit.enable();
+            }
+          }
           if (state is ButtonFailureState) {
-            showSnackbar(context, state.errorMessage);
+            showSnackbar(context, state.errorMessage, bgColor: Colors.red);
           }
           if (state is ButtonSuccessState) {
             AppNavigator.push(
@@ -43,14 +52,19 @@ class ForgotPasswordPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(height: 20.h),
-              Basic.textField(context, _emailCon, "Enter email address"),
+              BasicTextField(
+                key: const Key("email"),
+                type: FieldType.email,
+                controller: _emailCon,
+                hintText: "Enter email address",
+              ),
               SizedBox(height: 20.h),
-              BasicButton(
+              BasicReactiveButton(
                 onPressed: () {
-                  context.read<ButtonCubit>().execute(
-                        useCase: SendPasswordResetEmailUseCase(),
-                        params: _emailCon.text,
-                      );
+                  btnCubit.execute(
+                    useCase: SendPasswordResetEmailUseCase(),
+                    params: _emailCon.text,
+                  );
                 },
                 title: "Continue",
               ),

@@ -17,15 +17,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GenderAndAgeSelectionPage extends StatelessWidget {
-  final String email;
-  final String password;
-  final String lastName;
-  final String firstName;
+  final UserCreationModel userCreationModel;
   const GenderAndAgeSelectionPage({
-    required this.email,
-    required this.password,
-    required this.lastName,
-    required this.firstName,
+    required this.userCreationModel,
     super.key,
   });
 
@@ -76,8 +70,11 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
   }
 
   Widget _tellUs() {
-    return Basic.text("Tell us about yourself",
-        fontSize: 24.sp, fontWeight: FontWeight.w500);
+    return Basic.text(
+      "Tell us about yourself",
+      fontSize: 24.sp,
+      fontWeight: FontWeight.w500,
+    );
   }
 
   Widget _genders(BuildContext context) {
@@ -191,12 +188,6 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
           builder: (context) {
             return BasicReactiveButton(
               onPressed: () {
-                final UserCreationModel userCreationModel = UserCreationModel(
-                  email: email,
-                  lastName: lastName,
-                  password: password,
-                  firstName: firstName,
-                );
                 userCreationModel.age =
                     context.read<AgeSelectionCubit>().selectedAge;
                 userCreationModel.gender =

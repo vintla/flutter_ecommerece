@@ -27,6 +27,7 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppPages.generateRoute,
           theme: AppTheme.appTheme,
+          initialRoute: AppRoutes.SPLASH_PAGE,
         ),
       ),
     );

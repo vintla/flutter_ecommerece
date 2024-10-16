@@ -3,7 +3,8 @@ import 'package:ecommerce_app/app/common/helper/show_snackbar.dart';
 import 'package:ecommerce_app/app/common/routes/names.dart';
 import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
-import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
+import 'package:ecommerce_app/app/common/widgets/basic_reactive_button.dart';
+import 'package:ecommerce_app/app/common/widgets/basic_text_field.dart';
 import 'package:ecommerce_app/app/data/auth/models/user_creation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,25 +41,45 @@ class SignupPage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 20.h),
-            Basic.textField(context, _firstName, "Firstname"),
+            BasicTextField(
+              key: const Key("firstname"),
+              type: FieldType.text,
+              controller: _firstName,
+              hintText: "Firstname",
+            ),
             SizedBox(height: 20.h),
-            Basic.textField(context, _lastName, "Lastname"),
+            BasicTextField(
+              key: const Key("lastname"),
+              type: FieldType.text,
+              controller: _lastName,
+              hintText: "Lastname",
+            ),
             SizedBox(height: 20.h),
-            Basic.textField(context, _emailCon, "Email Address"),
+            BasicTextField(
+              key: const Key("email"),
+              type: FieldType.email,
+              controller: _emailCon,
+              hintText: "Email Address",
+            ),
             SizedBox(height: 20.h),
-            Basic.textField(context, _passwordCon, "Password"),
+            BasicTextField(
+              key: const Key("password"),
+              type: FieldType.password,
+              controller: _passwordCon,
+              hintText: "Password",
+            ),
             SizedBox(height: 20.h),
-            BasicButton(
+            BasicReactiveButton(
               onPressed: () {
                 AppNavigator.push(
                   context,
                   AppRoutes.GENDER_AND_AGE_SELECTION_PAGE,
-                  args: [
-                    _emailCon.text,
-                    _passwordCon.text,
-                    _firstName.text,
-                    _lastName.text,
-                  ],
+                  args: UserCreationModel(
+                    email: _emailCon.text.trim(),
+                    lastName: _lastName.text.trim(),
+                    password: _passwordCon.text.trim(),
+                    firstName: _firstName.text.trim(),
+                  ),
                 );
               },
               title: "Continue",

@@ -7,8 +7,11 @@ import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_reactive_button.dart';
+import 'package:ecommerce_app/app/common/widgets/basic_text_field.dart';
+import 'package:ecommerce_app/app/core/config/themes/app_colors.dart';
 import 'package:ecommerce_app/app/data/auth/models/user_signin_model.dart';
 import 'package:ecommerce_app/app/domain/auth/usecases/signin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,10 +35,18 @@ class EnterPasswordPage extends StatelessWidget {
         ),
         child: BlocListener<ButtonCubit, ButtonState>(
           listener: (context, state) {
+            // if (state is ButtonInitialState) {
+            //   _passwordCon.addListener(() {
+            //     _passwordCon.value.text.isEmpty
+            //         ? context.read<ButtonCubit>().disable()
+            //         : context.read<ButtonCubit>().enable();
+            //   });
+            // }
             if (state is ButtonFailureState) {
-              showSnackbar(context, state.errorMessage);
+              showSnackbar(context, state.errorMessage, bgColor: Colors.red);
             }
             if (state is ButtonSuccessState) {
+              showSnackbar(context, "Welcome!", bgColor: AppColors.primary);
               AppNavigator.push(context, AppRoutes.APPLICATION_PAGE);
             }
           },
@@ -48,7 +59,11 @@ class EnterPasswordPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(height: 20.h),
-              Basic.textField(context, _passwordCon, "Enter your password"),
+              BasicTextField(
+                type: FieldType.password,
+                controller: _passwordCon,
+                hintText: "Enter your password",
+              ),
               SizedBox(height: 20.h),
               BasicReactiveButton(
                 onPressed: () {
@@ -59,10 +74,6 @@ class EnterPasswordPage extends StatelessWidget {
                         useCase: SigninUseCase(),
                         params: userSigninModel,
                       );
-                  // .then(
-                  //   (value) => AppNavigator.push(
-                  //       context, AppRoutes.APPLICATION_PAGE),
-                  // );
                 },
                 title: "Continue",
               ),
@@ -71,8 +82,7 @@ class EnterPasswordPage extends StatelessWidget {
                 "Forgot your password? ",
                 "Reset password",
                 () {
-                  showSnackbar(context, "Reset password");
-                  // AppNavigator.push(context, '/signup');
+                  AppNavigator.push(context, AppRoutes.FORGOT_PASSWORD_PAGE);
                 },
               )
             ],

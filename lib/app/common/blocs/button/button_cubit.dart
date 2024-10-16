@@ -5,7 +5,10 @@ import 'button_state.dart';
 import '../../../core/usecase/usecase.dart';
 
 class ButtonCubit extends Cubit<ButtonState> {
-  ButtonCubit() : super(ButtonInitialState());
+  ButtonCubit() : super(ButtonInitialState(isActive: false));
+
+  void disable() => emit(ButtonInitialState(isActive: false));
+  void enable() => emit(ButtonInitialState(isActive: true));
 
   Future<void> execute({dynamic params, required UseCase useCase}) async {
     emit(ButtonLoadingState());

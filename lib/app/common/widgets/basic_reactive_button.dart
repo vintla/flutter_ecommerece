@@ -13,7 +13,7 @@ class BasicReactiveButton extends StatelessWidget {
 
   const BasicReactiveButton({
     this.content,
-    required this.onPressed,
+    this.onPressed,
     this.title = "",
     this.height,
     super.key,
@@ -21,15 +21,39 @@ class BasicReactiveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ButtonCubit, ButtonState>(builder: (context, state) {
-      if (state is ButtonLoadingState) {
-        return _loading();
-      }
-      return _initial();
-    });
+    return BlocBuilder<ButtonCubit, ButtonState>(
+      builder: (context, state) {
+        if (state is ButtonLoadingState) {
+          return _loading();
+        }
+        if (state is ButtonInitialState && state.isActive == false) {
+          return _initialDisable();
+        }
+        return _initialActive();
+      },
+    );
   }
 
-  Widget _initial() {
+  Widget _initialDisable() {
+    return ElevatedButton(
+      onPressed: null,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size.fromHeight(height?.h ?? 50.h),
+      ),
+      child: content ??
+          SizedBox(
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+    );
+  }
+
+  Widget _initialActive() {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(

@@ -4,6 +4,7 @@ import 'package:ecommerce_app/app/common/routes/names.dart';
 import 'package:ecommerce_app/app/common/widgets/basic.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_appbar.dart';
 import 'package:ecommerce_app/app/common/widgets/basic_button.dart';
+import 'package:ecommerce_app/app/common/widgets/basic_text_field.dart';
 import 'package:ecommerce_app/app/data/auth/models/user_signin_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +33,12 @@ class SigninPage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 20.h),
-            Basic.textField(context, _emailCon, "Your email address"),
+            BasicTextField(
+              key: const Key("email"),
+              type: FieldType.email,
+              controller: _emailCon,
+              hintText: "Your email address",
+            ),
             SizedBox(height: 20.h),
             BasicButton(
               onPressed: () => AppNavigator.push(

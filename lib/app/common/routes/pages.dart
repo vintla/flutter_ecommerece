@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:ecommerce_app/app/common/blocs/button/button_cubit.dart';
 import 'package:ecommerce_app/app/common/routes/names.dart';
 import 'package:ecommerce_app/app/data/auth/models/user_creation_model.dart';
@@ -29,8 +27,12 @@ class PageEntity {
 }
 
 class AppPages {
-  static List<PageEntity> _pages({dynamic args}) {
+  static List<PageEntity> _pages({
+    dynamic args,
+  }) {
     debugPrint(args.toString());
+    debugPrint("allvin");
+    // final userCreationModel = args as UserCreationModel;
     return [
       //--------------------------------
       // Initial Page
@@ -40,7 +42,8 @@ class AppPages {
         route: AppRoutes.SPLASH_PAGE,
         page: const SplashPage(),
         blocProvider: BlocProvider<SplashCubit>(
-            create: (_) => SplashCubit()..appStarted()),
+          create: (_) => SplashCubit()..appStarted(),
+        ),
       ),
 
       //--------------------------------
@@ -66,10 +69,12 @@ class AppPages {
       PageEntity(
         route: AppRoutes.GENDER_AND_AGE_SELECTION_PAGE,
         page: GenderAndAgeSelectionPage(
-          email: args[0],
-          password: args[1],
-          firstName: args[2],
-          lastName: args[3],
+          userCreationModel: UserCreationModel(
+            firstName: 'firstName',
+            lastName: "",
+            email: "",
+            password: "",
+          ),
         ),
         blocProvider: BlocProvider(
           create: (_) => ButtonCubit(),
@@ -118,6 +123,7 @@ class AppPages {
 
   static MaterialPageRoute generateRoute(RouteSettings settings) {
     if (settings.name != null) {
+      debugPrint(settings.arguments.toString());
       //check route name when navigation get triggered
       var result = _pages(args: settings.arguments)
           .where((element) => element.route == settings.name);
